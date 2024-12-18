@@ -1,0 +1,52 @@
+
+
+/* 可选：添加其他字体 */
+@font-face {
+  font-family: "WonderLife";
+  src: url('@/assets/fonts/WonderLife.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 现有样式保持不变 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #1a1a1a;    /* 主背景色 */
+  --bg-secondary: #242424;  /* 次要背景色 */
+  --text-primary: #e0e0e0;  /* 主要文字颜色 */
+  --text-secondary: #a0a0a0;/* 次要文字颜色 */
+}
+
+body {
+  font-family: WonderLife, Arial, sans-serif; /* 使用CaoShu字体 */
+  line-height: 1.6;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+/* 可选：设置链接颜色 */
+a {
+  color: #6f9eee;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #8fb4f3;
+}
+
+/* 可选：设置选中文字的背景色 */
+::selection {
+  background-color: #3a3a3a;
+  color: #ffffff;
+}
