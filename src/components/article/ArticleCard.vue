@@ -14,15 +14,32 @@
       <h2 class="article-title">{{ article.title }}</h2>
       <p class="article-description">{{ article.description }}</p>
       <div class="article-meta">
-        
         <span class="publish-date">
           <i class="fas fa-calendar" style="color: pink;"></i>
-          {{ article.publishDate }}
+          {{ article.createTime }}
         </span>
         <span class="reading-time">
           <i class="fas fa-clock" style="color: pink"></i>
           {{ article.readingTime }} 分钟阅读
         </span>
+        <div class="article-stats">
+          <span class="likes">
+            <i class="fas fa-thumbs-up" style="color: pink"></i>
+            {{ article.likes || 0 }} 喜欢
+          </span>
+          <span class="collections">
+            <i class="fas fa-bookmark" style="color: pink"></i>
+            {{ article.collections || 0 }} 收藏
+          </span>
+          <span class="views">
+            <i class="fas fa-eye" style="color: pink"></i>
+            {{ article.views || 0 }} 浏览
+          </span>
+          <span class="comments">
+            <i class="fas fa-comments" style="color: pink"></i>
+            {{ article.comments || 0 }} 评论
+          </span>
+        </div>
         <span class="category">
           <i class="fas fa-folder" style="color: pink"></i>
           {{ article.category }}
@@ -35,16 +52,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import loadingGif from '@/assets/loading.gif'
+
 // 定义文章接口
+type Label = string;
 interface Article {
-  id: number
-  title: string
-  description: string
-  coverImage: string
-  publishDate: string
-  readingTime: number
-  category: string
-  slug: string
+  id: number;
+  title: string;
+  description: string;
+  coverImage: string;
+  createTime: string;
+  readingTime: number;
+  category: string;
+  labels: Label[];
+  likes?: number;
+  views?: number;
+  comments?: number;
+  collections?: number;
 }
 
 // 定义 props 类型
@@ -60,8 +83,7 @@ const isLoading = ref<boolean>(false)
 
 // 点击处理函数
 const handleClick = (): void => {
-  // 可以添加路由导航或其他处理逻辑
-  console.log('点击了文章:', props.article.slug)
+  console.log('点击了文章:', props.article.id)
 }
 
 // 图片错误处理函数
@@ -76,8 +98,6 @@ const handleImageError = (e: Event): void => {
 </script>
 
 <style scoped>
-
-
 .article-card {
   background-color: rgba(255, 255, 200, 0.02);
   border-radius: 12px;
@@ -142,7 +162,7 @@ const handleImageError = (e: Event): void => {
 }
 
 .article-description {
-  padding-top: 8%;
+  padding-top: 1%;
   font-size: 0.9rem;
   color: #ffffff;
   margin-bottom: 10px;
@@ -156,8 +176,8 @@ const handleImageError = (e: Event): void => {
 
 .article-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-direction: column;
+  gap: 8px;
   color: pink;
   font-size: 0.9em;
   margin-top: auto;
@@ -172,6 +192,12 @@ const handleImageError = (e: Event): void => {
 .article-meta i {
   font-size: 0.9em;
   color: #666;
+}
+
+.article-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 :deep(.article-meta) {
@@ -203,8 +229,12 @@ const handleImageError = (e: Event): void => {
   }
 
   .article-meta {
-    gap: 12px;
+    gap: 6px;
     font-size: 0.85em;
+  }
+
+  .article-stats {
+    gap: 12px;
   }
 }
 </style>

@@ -49,7 +49,7 @@ http.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
     const { code, msg, data } = response.data;
     
-    console.log('收到响应:', {
+    console.log('http拦截器收到响应:', {
       url: response.config.url,
       status: response.status,
       code,
